@@ -127,7 +127,7 @@
    EnergyDensity(:) = zero
 
    do zone=1,nzones
-     EnergyDensity(zone) = Rad% radEnergy(zone)/Geom% VolumeZone(zone)
+     EnergyDensity(zone) = Rad% radEnergy(zone)/ merge(1.0, Geom% VolumeZone(zone), Geom% VolumeZone(zone) == 0)
    enddo
 
 !  Find an energy threshold for convergence tests

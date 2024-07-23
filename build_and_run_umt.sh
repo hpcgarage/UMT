@@ -8,9 +8,12 @@
 # FC = <path to Fortran compiler>
 
 # Default to GNU
-CC=gcc
-CXX=g++
-FC=gfortran
+#CC=gcc
+#CXX=g++
+#FC=gfortran
+CC=/net/projects/tools/x86_64/rhel-8/intel-oneapi/2023.1/compiler/2023.1.0/linux/bin/icx
+CXX=/net/projects/tools/x86_64/rhel-8/intel-oneapi/2023.1/compiler/2023.1.0/linux/bin/icpx
+FC=/net/projects/tools/x86_64/rhel-8/intel-oneapi/2023.1/compiler/2023.1.0/linux/bin/ifx
 
 FFLAGS=-fallow-argument-mismatch
 
@@ -43,12 +46,12 @@ cd umt_workspace
 git clone --recurse-submodules  https://github.com/LLNL/conduit.git conduit -b v0.9.0
 mkdir build_conduit
 cd build_conduit
-cmake ${PWD}/../conduit/src -DCMAKE_INSTALL_PREFIX=${INSTALL_PATH} -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_Fortran_COMPILER=${FC} -DMPI_CXX_COMPILER=mpicxx -DMPI_Fortran_COMPILER=mpifort -DBUILD_SHARED_LIBS=OFF -DENABLE_TESTS=OFF -DENABLE_EXAMPLES=OFF -DENABLE_DOCS=OFF -DENABLE_FORTRAN=ON -DENABLE_MPI=ON -DENABLE_PYTHON=OFF
+cmake ${PWD}/../conduit/src -DCMAKE_INSTALL_PREFIX=${INSTALL_PATH} -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_Fortran_COMPILER=${FC} -DMPI_CXX_COMPILER=mpicxx -DMPI_Fortran_COMPILER=mpiifort -DBUILD_SHARED_LIBS=OFF -DENABLE_TESTS=OFF -DENABLE_EXAMPLES=OFF -DENABLE_DOCS=OFF -DENABLE_FORTRAN=ON -DENABLE_MPI=ON -DENABLE_PYTHON=OFF -DCMAKE_EXE_LINKER_FLAGS=-static-libstdc++
 gmake -j install
 cd ..
 
 # Run CMake on UMT, compile, and install.
-cmake ${UMT_REPO_PATH}/src -DCMAKE_Fortran_FLAGS=${FFLAGS} -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_Fortran_COMPILER=${FC} -DCMAKE_INSTALL_PREFIX=${INSTALL_PATH} -DCONDUIT_ROOT=${INSTALL_PATH} $1
+cmake ${UMT_REPO_PATH}/src -DCMAKE_Fortran_FLAGS=${FFLAGS} -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_Fortran_COMPILER=${FC} -DCMAKE_INSTALL_PREFIX=${INSTALL_PATH} -DCONDUIT_ROOT=${INSTALL_PATH} -DCMAKE_CXX_FLAGS=-static-libstdc++ $1
 gmake -j install
 cd ..
 

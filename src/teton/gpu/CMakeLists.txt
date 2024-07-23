@@ -1,3 +1,5 @@
+#set(CMAKE_VERBOSE_MAKEFILE "1")
+
 target_sources( teton PRIVATE
   CornerSweepUCBrz_OMPOL.F90
   CornerSweepUCBxyz_OMPOL.F90

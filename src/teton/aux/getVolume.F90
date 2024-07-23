@@ -9,6 +9,7 @@
 
 !  Include
 
+   use ISO_C_BINDING
    use kind_mod
    use Size_mod
    use Geometry_mod
@@ -18,7 +19,8 @@
 
 !  Save the "old" corner volumes
 
-   Geom% VolumeOld(:) = Geom% Volume(:)
+!  Commenting this out to prevent unexplained crashes
+!  Geom% VolumeOld(:) = Geom% Volume(:)
 
 !  Call the appropriate function based on the spatial dimensionality
 

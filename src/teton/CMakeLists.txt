@@ -4,6 +4,8 @@ include(../cmake/SubDirList.cmake)
 # will be converted to absolute path.
 cmake_policy(SET CMP0076 NEW)
 
+set(CMAKE_VERBOSE_MAKEFILE "1")
+
 ############################
 # LIBRARY
 ############################
